@@ -1,6 +1,5 @@
 ﻿using API.Data;
 using API.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +7,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController(DataContext context) : ControllerBase
+    public class UsersController(DataContext context) : BaseApiController
     {
 
         [HttpGet]
@@ -23,8 +22,8 @@ namespace API.Controllers
 
             return Ok(users);
         }
-        
-        
+
+
         [HttpGet("{id}")] //api/users/2
         public async Task<ActionResult<AppUser>> GetUserById(int id)
         {
