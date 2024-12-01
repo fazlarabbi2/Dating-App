@@ -1,4 +1,6 @@
 using API.Data;
+using API.Interfaces;
+using API.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace API
@@ -21,6 +23,7 @@ namespace API
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             builder.Services.AddCors();
+            builder.Services.AddScoped<ITokenService, TokenService>();
 
             var app = builder.Build();
 
