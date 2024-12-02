@@ -1,7 +1,4 @@
-using API.Data;
-using API.Interfaces;
-using API.Services;
-using Microsoft.EntityFrameworkCore;
+using API.Extensions;
 
 namespace API
 {
@@ -13,17 +10,9 @@ namespace API
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddApplicationServices(builder.Configuration);
 
-            builder.Services.AddDbContext<DataContext>(opt =>
-            {
-                opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
-            builder.Services.AddCors();
-            builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddIdentityServices(builder.Configuration);
 
             var app = builder.Build();
 
@@ -35,10 +24,11 @@ namespace API
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "https://localhost:4200"));
             app.MapControllers();
 
             app.Run();
