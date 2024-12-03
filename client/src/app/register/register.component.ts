@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
+
+
 export class RegisterComponent {
   private accountService = inject(AccountService);
   private toastr = inject(ToastrService);
