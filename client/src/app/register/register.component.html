@@ -6,14 +6,14 @@
         <label>Username</label>
     </div>
 
-    <div class="mb-3">
+    <!-- <div class="mb-3">
         <label>Who is your favourite usser?</label>
         <select class="form-select">
             @for(user of usersFromHomeComponenet(); track $index){
             <option [value]="user.userName">{{user.userName}}</option>
             }
         </select>
-    </div>
+    </div> -->
 
     <div class=" div mb-3 form-floating">
         <input type="password" class="form-control" name="password" [(ngModel)]="model.password"
